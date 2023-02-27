@@ -1,0 +1,12 @@
+using SafeMath for uint256;
+uint256 private enabled = block.timestamp;
+
+modifier rateLimit(uint time) {
+  require(block.timestamp >= enabled, "Time is less than enabled time");
+  enabled = enabled.add(time);
+  _;
+}
+
+function safeWithdraw(uint256 amount) external rateLimit(30 minutes) {
+  // not required
+}
